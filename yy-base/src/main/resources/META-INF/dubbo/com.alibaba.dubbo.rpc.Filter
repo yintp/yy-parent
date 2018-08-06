@@ -1,0 +1,1 @@
+loggerContextFilter=com.andy.yy.base.dubbo.LoggerContextFilter

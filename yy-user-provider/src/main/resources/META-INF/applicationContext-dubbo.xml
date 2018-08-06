@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/context
+			http://www.springframework.org/schema/context/spring-context.xsd
+			http://www.springframework.org/schema/aop
+	        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+			http://code.alibabatech.com/schema/dubbo
+			http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <context:component-scan base-package="com.andy.yy.user.service.*"/>
+
+    <bean class="com.andy.yy.base.log.MethodAroundLoggerAspect"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <bean class="com.andy.yy.base.dubbo.LoggerContextFilter"/>
+
+    <dubbo:application name="yy-user-provider" logger="slf4j"/>
+    <dubbo:registry id="zookeeper" address="${dubbo.zookeeper.url}" check="true" file="${dubbo.registry.file}"/>
+    <dubbo:protocol name="${dubbo.protocol.name}" port="${dubbo.protocol.port}"/>
+
+    <dubbo:provider timeout="5000" retries="0"/>
+    <dubbo:consumer check="false" retries="0"/>
+
+    <dubbo:service interface="com.andy.yy.user.service.UserForAppService" ref="userForAppService"
+                   version="${dubbo.version}" registry="zookeeper" filter="loggerContextFilter" />
+</beans>

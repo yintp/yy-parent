@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+			http://www.springframework.org/schema/beans/spring-beans.xsd
+			http://www.springframework.org/schema/aop
+	        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+			http://code.alibabatech.com/schema/dubbo
+			http://code.alibabatech.com/schema/dubbo/dubbo.xsd">
+
+    <bean class="com.andy.yy.base.log.MethodAroundLoggerAspect"/>
+    <aop:aspectj-autoproxy proxy-target-class="true"/>
+
+    <bean class="com.andy.yy.base.dubbo.LoggerContextFilter"/>
+
+    <dubbo:application name="yy-app-web" logger="slf4j"/>
+    <dubbo:registry id="zookeeper" address="${dubbo.zookeeper.url}" check="true" file="${dubbo.registry.file}"/>
+    <dubbo:protocol name="${dubbo.protocol.name}"/>
+
+    <dubbo:consumer check="false" retries="0"/>
+
+    <dubbo:reference interface="com.andy.yy.user.service.UserForAppService" id="userForAppService"
+                     version="${dubbo.version}" check="false" filter="loggerContextFilter"/>
+</beans>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andy.yy.user.dao.UserFriendDAO">
+  <resultMap id="resultMap" type="com.andy.yy.user.entity.UserFriendEntity">
+    <id column="id" property="id" />
+    <result column="userId" property="userId" />
+    <result column="friendId" property="friendId" />
+    <result column="friendRemark" property="friendRemark" />
+    <result column="status" property="status" />
+    <result column="createTime" property="createTime" />
+    <result column="updateTime" property="updateTime" />
+  </resultMap>
+  <sql id="t_user_friend">
+    t_user_friend
+  </sql>
+  <sql id="all_column">
+    `id`, `userId`, `friendId`, `friendRemark`, `status`, `createTime`, `updateTime`
+  </sql>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.andy.yy.user.entity.UserFriendEntity" useGeneratedKeys="true">
+    INSERT INTO <include refid="t_user_friend" />
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        `userId`,
+      </if>
+      <if test="friendId != null">
+        `friendId`,
+      </if>
+      <if test="friendRemark != null">
+        `friendRemark`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createTime != null">
+        `createTime`,
+      </if>
+      <if test="updateTime != null">
+        `updateTime`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userId != null">
+        #{userId},
+      </if>
+      <if test="friendId != null">
+        #{friendId},
+      </if>
+      <if test="friendRemark != null">
+        #{friendRemark},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateById" parameterType="com.andy.yy.user.entity.UserFriendEntity">
+    UPDATE <include refid="t_user_friend" />
+    <set>
+      <if test="userId != null">
+        `userId` = #{userId},
+      </if>
+      <if test="friendId != null">
+        `friendId` = #{friendId},
+      </if>
+      <if test="friendRemark != null">
+        `friendRemark` = #{friendRemark},
+      </if>
+      <if test="status != null">
+        `status` = #{status},
+      </if>
+      <if test="createTime != null">
+        `createTime` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `updateTime` = #{updateTime},
+      </if>
+    </set>
+    WHERE `id` = #{id}
+  </update>
+  <select id="selectById" parameterType="java.lang.Long" resultMap="resultMap">
+    SELECT <include refid="all_column" />
+    FROM <include refid="t_user_friend" />
+    WHERE `id` = #{id}
+  </select>
+  <select id="selectBy" parameterType="java.util.Map" resultMap="resultMap">
+    SELECT <include refid="all_column" />
+    FROM <include refid="t_user_friend" />
+    <where>
+      <include refid="condition" />
+    </where>
+    LIMIT 1
+  </select>
+  <select id="selectListBy" parameterType="java.util.Map" resultMap="resultMap">
+    SELECT <include refid="all_column" />
+    FROM <include refid="t_user_friend" />
+    <where>
+      <include refid="condition" />
+    </where>
+  </select>
+  <sql id="condition">
+    <if test="id != null">
+      AND `id` = #{id}
+    </if>
+    <if test="userId != null">
+      AND `userId` = #{userId}
+    </if>
+    <if test="friendId != null">
+      AND `friendId` = #{friendId}
+    </if>
+    <if test="friendRemark != null">
+      AND `friendRemark` = #{friendRemark}
+    </if>
+    <if test="status != null">
+      AND `status` = #{status}
+    </if>
+    <if test="createTime != null">
+      AND `createTime` = #{createTime}
+    </if>
+    <if test="updateTime != null">
+      AND `updateTime` = #{updateTime}
+    </if>
+  </sql>
+</mapper>

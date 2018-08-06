@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andy.yy.user.dao.UserDAO">
+    <cache type="com.andy.yy.base.mybatis.MybatisRedisCache"/>
+    <resultMap id="resultMap" type="com.andy.yy.user.entity.UserEntity">
+        <id column="id" property="id"/>
+        <result column="account" property="account"/>
+        <result column="pwd" property="pwd"/>
+        <result column="salt" property="salt"/>
+        <result column="email" property="email"/>
+        <result column="nickName" property="nickName"/>
+        <result column="headImg" property="headImg"/>
+        <result column="remark" property="remark"/>
+        <result column="status" property="status"/>
+        <result column="token" property="token"/>
+        <result column="createTime" property="createTime"/>
+        <result column="updateTime" property="updateTime"/>
+    </resultMap>
+    <sql id="t_user">
+    t_user
+  </sql>
+    <sql id="all_column">
+    `id`, `account`, `pwd`, `salt`, `email`, `nickName`, `headImg`, `remark`, `status`, `token`,
+    `createTime`, `updateTime`
+  </sql>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.andy.yy.user.entity.UserEntity"
+            useGeneratedKeys="true">
+        INSERT INTO
+        <include refid="t_user"/>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                `account`,
+            </if>
+            <if test="pwd != null">
+                `pwd`,
+            </if>
+            <if test="salt != null">
+                `salt`,
+            </if>
+            <if test="email != null">
+                `email`,
+            </if>
+            <if test="nickName != null">
+                `nickName`,
+            </if>
+            <if test="headImg != null">
+                `headImg`,
+            </if>
+            <if test="remark != null">
+                `remark`,
+            </if>
+            <if test="status != null">
+                `status`,
+            </if>
+            <if test="token != null">
+                `token`,
+            </if>
+            <if test="createTime != null">
+                `createTime`,
+            </if>
+            <if test="updateTime != null">
+                `updateTime`,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="account != null">
+                #{account},
+            </if>
+            <if test="pwd != null">
+                #{pwd},
+            </if>
+            <if test="salt != null">
+                #{salt},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="nickName != null">
+                #{nickName},
+            </if>
+            <if test="headImg != null">
+                #{headImg},
+            </if>
+            <if test="remark != null">
+                #{remark},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="token != null">
+                #{token},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateById" parameterType="com.andy.yy.user.entity.UserEntity">
+        UPDATE
+        <include refid="t_user"/>
+        <set>
+            <if test="account != null">
+                `account` = #{account},
+            </if>
+            <if test="pwd != null">
+                `pwd` = #{pwd},
+            </if>
+            <if test="salt != null">
+                `salt` = #{salt},
+            </if>
+            <if test="email != null">
+                `email` = #{email},
+            </if>
+            <if test="nickName != null">
+                `nickName` = #{nickName},
+            </if>
+            <if test="headImg != null">
+                `headImg` = #{headImg},
+            </if>
+            <if test="remark != null">
+                `remark` = #{remark},
+            </if>
+            <if test="status != null">
+                `status` = #{status},
+            </if>
+            <if test="token != null">
+                `token` = #{token},
+            </if>
+            <if test="createTime != null">
+                `createTime` = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                `updateTime` = #{updateTime},
+            </if>
+        </set>
+        WHERE `id` = #{id}
+    </update>
+    <select id="selectById" parameterType="java.lang.Long" resultMap="resultMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM
+        <include refid="t_user"/>
+        WHERE `id` = #{id}
+    </select>
+    <select id="selectBy" parameterType="java.util.Map" resultMap="resultMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM
+        <include refid="t_user"/>
+        <where>
+            <include refid="condition"/>
+        </where>
+        LIMIT 1
+    </select>
+    <select id="selectListBy" parameterType="java.util.Map" resultMap="resultMap">
+        SELECT
+        <include refid="all_column"/>
+        FROM
+        <include refid="t_user"/>
+        <where>
+            <include refid="condition"/>
+        </where>
+    </select>
+    <sql id="condition">
+        <if test="id != null">
+            AND `id` = #{id}
+        </if>
+        <if test="account != null">
+            AND `account` = #{account}
+        </if>
+        <if test="pwd != null">
+            AND `pwd` = #{pwd}
+        </if>
+        <if test="salt != null">
+            AND `salt` = #{salt}
+        </if>
+        <if test="email != null">
+            AND `email` = #{email}
+        </if>
+        <if test="nickName != null">
+            AND `nickName` = #{nickName}
+        </if>
+        <if test="headImg != null">
+            AND `headImg` = #{headImg}
+        </if>
+        <if test="remark != null">
+            AND `remark` = #{remark}
+        </if>
+        <if test="status != null">
+            AND `status` = #{status}
+        </if>
+        <if test="token != null">
+            AND `token` = #{token}
+        </if>
+        <if test="createTime != null">
+            AND `createTime` = #{createTime}
+        </if>
+        <if test="updateTime != null">
+            AND `updateTime` = #{updateTime}
+        </if>
+        <if test="search != null and search != ''">
+            AND (account LIKE concat('%',#{search},'%') OR nickName LIKE concat('%',#{search},'%'))
+        </if>
+    </sql>
+</mapper>

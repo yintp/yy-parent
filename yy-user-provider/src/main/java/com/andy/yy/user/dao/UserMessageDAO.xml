@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.andy.yy.user.dao.UserMessageDAO">
+  <resultMap id="resultMap" type="com.andy.yy.user.entity.UserMessageEntity">
+    <id column="id" property="id" />
+    <result column="type" property="type" />
+    <result column="from" property="from" />
+    <result column="to" property="to" />
+    <result column="content" property="content" />
+    <result column="status" property="status" />
+    <result column="createTime" property="createTime" />
+    <result column="updateTime" property="updateTime" />
+  </resultMap>
+  <sql id="t_user_message">
+    t_user_message
+  </sql>
+  <sql id="all_column">
+    `id`, `type`, `from`, `to`, `content`, `status`, `createTime`, `updateTime`
+  </sql>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.andy.yy.user.entity.UserMessageEntity" useGeneratedKeys="true">
+    INSERT INTO <include refid="t_user_message" />
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        `type`,
+      </if>
+      <if test="from != null">
+        `from`,
+      </if>
+      <if test="to != null">
+        `to`,
+      </if>
+      <if test="content != null">
+        `content`,
+      </if>
+      <if test="status != null">
+        `status`,
+      </if>
+      <if test="createTime != null">
+        `createTime`,
+      </if>
+      <if test="updateTime != null">
+        `updateTime`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="type != null">
+        #{type},
+      </if>
+      <if test="from != null">
+        #{from},
+      </if>
+      <if test="to != null">
+        #{to},
+      </if>
+      <if test="content != null">
+        #{content},
+      </if>
+      <if test="status != null">
+        #{status},
+      </if>
+      <if test="createTime != null">
+        #{createTime},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateById" parameterType="com.andy.yy.user.entity.UserMessageEntity">
+    UPDATE <include refid="t_user_message" />
+    <set>
+      <if test="type != null">
+        `type` = #{type},
+      </if>
+      <if test="from != null">
+        `from` = #{from},
+      </if>
+      <if test="to != null">
+        `to` = #{to},
+      </if>
+      <if test="content != null">
+        `content` = #{content},
+      </if>
+      <if test="status != null">
+        `status` = #{status},
+      </if>
+      <if test="createTime != null">
+        `createTime` = #{createTime},
+      </if>
+      <if test="updateTime != null">
+        `updateTime` = #{updateTime},
+      </if>
+    </set>
+    WHERE `id` = #{id}
+  </update>
+  <select id="selectById" parameterType="java.lang.Long" resultMap="resultMap">
+    SELECT <include refid="all_column" />
+    FROM <include refid="t_user_message" />
+    WHERE `id` = #{id}
+  </select>
+  <select id="selectBy" parameterType="java.util.Map" resultMap="resultMap">
+    SELECT <include refid="all_column" />
+    FROM <include refid="t_user_message" />
+    <where>
+      <include refid="condition" />
+    </where>
+    LIMIT 1
+  </select>
+  <select id="selectListBy" parameterType="java.util.Map" resultMap="resultMap">
+    SELECT <include refid="all_column" />
+    FROM <include refid="t_user_message" />
+    <where>
+      <include refid="condition" />
+    </where>
+  </select>
+  <sql id="condition">
+    <if test="id != null">
+      AND `id` = #{id}
+    </if>
+    <if test="type != null">
+      AND `type` = #{type}
+    </if>
+    <if test="from != null">
+      AND `from` = #{from}
+    </if>
+    <if test="to != null">
+      AND `to` = #{to}
+    </if>
+    <if test="content != null">
+      AND `content` = #{content}
+    </if>
+    <if test="status != null">
+      AND `status` = #{status}
+    </if>
+    <if test="createTime != null">
+      AND `createTime` = #{createTime}
+    </if>
+    <if test="updateTime != null">
+      AND `updateTime` = #{updateTime}
+    </if>
+  </sql>
+</mapper>
