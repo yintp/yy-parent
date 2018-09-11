@@ -7,7 +7,7 @@
 `https://www.showdoc.cc/web/#/19686947999998?page_id=129621262020004`
 
 ## 项目官网
-`https://yy-happy.com`
+`https://www.yy-happy.com/`
 
 # 联系方式
 
