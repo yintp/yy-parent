@@ -13,4 +13,4 @@
 
 如果发现有错误欢迎反馈给我，可以用以下联系方式跟我探讨、交流：
 
-* 邮件：yintengping@gmail.com
+* 邮件：yintengping@foxmail.com
